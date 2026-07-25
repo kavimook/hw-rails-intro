@@ -9,9 +9,9 @@ class MoviesController < ApplicationController
     redirect_needed = false
 
     # 1. Handle Sorting
-    if params[:sort]
-      session[:sort] = params[:sort]
-    elsif session[:sort]
+    if params[:sort_by]
+      session[:sort_by] = params[:sort_by]
+    elsif session[:sort_by]
       redirect_needed = true
     end
 
@@ -30,11 +30,11 @@ class MoviesController < ApplicationController
     end
 
     # 4. Set up your instance variables for the view using session values
-    @sort = session[:sort]
+    @sort_by = session[:sort_by]
     @ratings_to_show = session[:ratings] || Hash[@all_ratings.map { |r| [r, 1] }]
     
     # 5. Fetch movies from DB using @sort and @ratings_to_show.keys
-    @movies = Movie.with_ratings(@ratings_to_show.keys).order(@sort)
+    @movies = Movie.with_ratings(@ratings_to_show.keys).order(@sort_by)
   end
 
   # GET /movies/new
