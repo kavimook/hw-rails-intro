@@ -31,10 +31,10 @@ class MoviesController < ApplicationController
 
     # 4. Set up your instance variables for the view using session values
     @sort = session[:sort]
-    @ratings_to_show_hash = session[:ratings] || Hash[@all_ratings.map { |r| [r, 1] }]
+    @ratings_to_show = session[:ratings] || Hash[@all_ratings.map { |r| [r, 1] }]
     
-    # 5. Fetch movies from DB using @sort and @ratings_to_show_hash.keys
-    @movies = Movie.with_ratings(@ratings_to_show_hash.keys).order(@sort)
+    # 5. Fetch movies from DB using @sort and @ratings_to_show.keys
+    @movies = Movie.with_ratings(@ratings_to_show.keys).order(@sort)
   end
 
   # GET /movies/new
