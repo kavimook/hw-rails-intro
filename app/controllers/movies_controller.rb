@@ -4,6 +4,7 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
     @all_ratings = Movie.all_ratings
+    @sort_by = params[:sort_by]
 
     # Determine which ratings were checked (extracting keys from params[:ratings])
     if params[:ratings].present?
@@ -14,7 +15,7 @@ class MoviesController < ApplicationController
     end
 
     # Query the database for movies matching the checked ratings
-    @movies = Movie.with_ratings(@ratings_to_show)
+    @movies = Movie.with_ratings(@ratings_to_show).order(@sort_by)
   end
 
   # GET /movies/1 or /movies/1.json
